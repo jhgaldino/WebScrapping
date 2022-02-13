@@ -1,0 +1,23 @@
+Teste de Web Scraping
+    Para esse teste, foi usada a biblioteca selenium, o firefox e driver do selenium
+    do firefox : geckodriver, antes de executa-lo, as bibliotecas e esse driver devem ser instalados
+
+    Para instalar o selenium : "pip install selenium" no prompt de comando
+    
+    Para instalar o geckodriver : https://github.com/mozilla/geckodriver/releases, e entao
+    escolha o sistema operacional que voce esta. Instale o geckodriver na mesma pasta dos codigos para funcionar.
+
+    Configure o FireFox para fazer downloads de forma automatica.
+
+    Quando o código foi executado, o robo irá abrir o navegador e fazer os passos do teste.
+
+
+Teste de Transformação de dados
+    Para esse teste foram usadas as bibliotecas camelot e ghostscipt;
+    Para instalar o camelot : "pip install camelot" no prompt de comando;
+    Para instalar o ghostscipt : https://www.ghostscript.com/download/gsdnld.html;
+    O PDF precisa estar na mesma pasta do código para funcionar.
+
+Atensiosamente,
+Jonathan Henrique Galdino da Silva
+
