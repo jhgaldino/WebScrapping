@@ -1,22 +1,34 @@
-import camelot
-import pandas as pd
 import zipfile
-import time
+import io
+import PyPDF2
+import tabula
+import pandas as pd
 
-#ler as páginas especificas do PDF
-tables = camelot.read_pdf("Padrão_TISS_Componente_Organizacional_202103.pdf", pages='79-85')
-tabela = tables[0]
-#imprimir tabelas
-for tabela in tables:
-    print(tabela.df)
+# Abrir o arquivo PDF
+with open("Padrão_TISS_Componente_Organizacional_202103.pdf", "rb") as f:
+    # Criar um objeto PDFReader para ler o arquivo
+    reader = PyPDF2.PdfFileReader(f)
 
-#exportar para csv
-tabela.to_csv('tabelas.csv')
+    # Iterar sobre as páginas do arquivo
+    for i in range(79, 86):
+        # Extrair o texto da página
+        page = reader.getPage(i-1)
+        text = page.extractText()
 
-#esperar 5 segundos
-time.sleep(5)
+        # Usar o módulo tabula para extrair tabelas do texto da página
+        df = tabula.read_pdf(io.StringIO(text), pages='all')
 
-#comprimindo o arquivo csv criado
-zf = zipfile.ZipFile('Teste_Intuitive_Care_Jonathan_Henrique.zip')
-zf.write("tabelas.csv")
-zf.close()    
+        # Escrever o dataframe em um arquivo CSV
+        df.to_csv(f'tabela_{i}.csv', index=False)
+
+# Cria um objeto ZipFile com o nome do arquivo ZIP desejado
+zip_file = zipfile.ZipFile("tabelas.zip", mode="a")
+
+# Adiciona o arquivo CSV ao arquivo ZIP
+for i in range(79, 86):
+    zip_file.write(f"tabela_{i}.csv")
+
+# Adiciona os demais arquivos CSV aqui
+
+# Fecha o arquivo ZIP
+zip_file.close()
